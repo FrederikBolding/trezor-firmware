@@ -3,7 +3,7 @@ import utime
 import storage.cache
 import storage.sd_salt
 from trezor import config, ui, wire
-from trezor.messages import ButtonRequestType
+from trezor.enums import ButtonRequestType
 from trezor.ui.components.tt.pin import CANCELLED, PinDialog
 from trezor.ui.components.tt.text import Text
 from trezor.ui.popup import Popup
