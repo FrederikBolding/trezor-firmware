@@ -139,7 +139,7 @@ fn buffer_as_mut<'a>(ptr: *mut u8, len: usize) -> &'a mut [u8] {
     } else {
         // SAFETY: We assume that `ptr` is pointing to memory:
         //  - without any mutable references,
-        //  - valid and immutable in `'a`,
+        //  - valid and mutable in `'a`,
         //  - of at least `len` bytes.
         unsafe { slice::from_raw_parts_mut(ptr, len) }
     }
