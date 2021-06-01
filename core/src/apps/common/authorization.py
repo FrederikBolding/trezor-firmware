@@ -16,8 +16,9 @@ def is_set() -> bool:
 
 
 def set(auth_message: protobuf.MessageType) -> None:
-    buffer = protobuf.dump_message_buffer(auth_message)
-
+    buffer = bytearray(protobuf.count_message(auth_message))
+    writer = utils.BufferWriter(buffer)
+    protobuf.dump_message(writer, auth_message)
     storage.cache.set(
         storage.cache.APP_COMMON_AUTHORIZATION_TYPE,
         auth_message.MESSAGE_WIRE_TYPE.to_bytes(2, "big"),
@@ -31,8 +32,11 @@ def get() -> protobuf.MessageType | None:
         return None
 
     msg_wire_type = int.from_bytes(stored_auth_type, "big")
+    msg_type = messages.get_type(msg_wire_type)
     buffer = storage.cache.get(storage.cache.APP_COMMON_AUTHORIZATION_DATA)
-    return protobuf.load_message_buffer(buffer, msg_wire_type)
+    reader = utils.BufferReader(buffer)
+
+    return protobuf.load_message(reader, msg_type)
 
 
 def get_wire_types() -> Iterable[int]:
