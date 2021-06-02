@@ -2,8 +2,8 @@ import gc
 
 import storage.cache
 from trezor import log
+from trezor.enums import MessageType
 from trezor.messages import (
-    MessageType,
     MoneroLiveRefreshFinalAck,
     MoneroLiveRefreshStartAck,
     MoneroLiveRefreshStartRequest,
