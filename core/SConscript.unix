@@ -408,15 +408,9 @@ env.Replace(
 #
 
 PROTO_SOURCES_DIR = '../../../common/protob/'
-if EVERYTHING:
-    PROTO_SOURCES = Glob(PROTO_SOURCES_DIR + '*.proto',
-        exclude=[PROTO_SOURCES_DIR + 'messages-bootloader.proto']
-    )
-else:
-    PROTO_SOURCES = [
-        PROTO_SOURCES_DIR + f'messages{suffix}.proto'
-        for suffix in ('', '-bitcoin', '-common', '-crypto', '-management')
-    ]
+PROTO_SOURCES = Glob(PROTO_SOURCES_DIR + '*.proto',
+    exclude=[PROTO_SOURCES_DIR + 'messages-bootloader.proto']
+)
 qstr_protobuf = env.Command(
     target=[
         'genhdr/qstrdefs.protobuf.h',
