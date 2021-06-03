@@ -486,7 +486,7 @@ def format_message(
 
         if isinstance(value, list):
             # short list of simple values
-            if not value or "int" in field.type or field.type == "bool":
+            if not value or all(isinstance(x, int) for x in value):
                 return repr(value)
 
             # long list, one line per entry
